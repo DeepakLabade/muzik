@@ -11,7 +11,7 @@ datasource db {
 
 model User {
   id        String      @id   @default(uuid())
-  email     String
+  email     String      @unique
   provider  Provider  
   // role      Role
   streams   Stream[]
@@ -22,6 +22,9 @@ model Stream {
   id              String      @id   @default(uuid())
   type            StreamType
   active          Boolean     @default(true)
+  title           String      @default("")
+  smallImg        String      @default("")
+  bigImg          String      @default("")
   url             String
   extractedId     String
   upvotes         Upvote[]
@@ -31,7 +34,7 @@ model Stream {
 
 model Upvote {
   id        String      @id   @default(uuid())
-  userId    String
+  userId    String      
   streamId  String
   user      User        @relation(fields: [userId], references: [id])
   stream    Stream        @relation(fields: [streamId], references: [id])
